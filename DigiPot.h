@@ -3,10 +3,14 @@
 
 #include <mbed.h>
 
+enum Mode {
+    LINEAR, LOGARITHMIC    
+};
+
 class DigiPot {
 
     public:    
-        DigiPot(PinName miso, PinName mosi, PinName clk, PinName cs);
+        DigiPot(PinName miso, PinName mosi, PinName clk, PinName cs, Mode mode);
         void increment();
         void decrement();
         void setLevel(unsigned char);
@@ -17,6 +21,10 @@ class DigiPot {
         SPI *spi;
         DigitalOut *chsel;
         unsigned char level;
+        unsigned char percent;
+        Mode mode;
+        double scale;
+        unsigned char round(double);
 };
 
 #endif
